@@ -3,6 +3,7 @@
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -25,6 +26,9 @@ Route::middleware('auth')->group(function () {
     
     Route::get("/movies/{movie}", [CommentController::class, 'index'])->name('movies.show');
     Route::post("/", [CommentController::class, 'store'])->name('comments.store');
+    
+    Route::post("/movies", [RatingController::class, 'store'])->name('ratings.store');
+    
     
 
 });

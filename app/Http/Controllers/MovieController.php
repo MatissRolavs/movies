@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rating;
 use App\Models\Movie;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
+use App\Models\User;
 
 class MovieController extends Controller
 {
@@ -52,7 +54,11 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
-        return view('movies.show', compact('movie'));
+        $user = auth()->user();
+        $rating = Rating::where('movie_id', $movie->id)
+                        ->where('user_id', $user->id)
+                        ->first();
+        return view('movies.show', compact('movie','rating'));
     }
 
     /**

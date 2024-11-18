@@ -21,7 +21,7 @@ class RatingController extends Controller
      */
     public function create()
     {
-        //
+        return view('ratings.create');
     }
 
     /**
@@ -29,7 +29,13 @@ class RatingController extends Controller
      */
     public function store(StoreRatingRequest $request)
     {
-        //
+        Rating::where('user_id', $request->user_id)
+              ->where('movie_id', $request->movie_id)
+              ->delete();
+
+        $rating = Rating::create($request->only(['user_id', 'movie_id', 'rating']));
+        
+        return redirect()->route('movies.show', $rating->movie_id)->with('success', 'Rating created successfully!');
     }
 
     /**

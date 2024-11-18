@@ -1,4 +1,41 @@
 
+<style>
+.rating:not(:checked) > input {
+  position: absolute;
+  appearance: none;
+}
+
+.rating:not(:checked) > label {
+  float: right;
+  cursor: pointer;
+  font-size: 30px;
+  color: #666;
+}
+
+.rating:not(:checked) > label:before {
+  content: '★';
+}
+
+.rating > input:checked + label:hover,
+.rating > input:checked + label:hover ~ label,
+.rating > input:checked ~ label:hover,
+.rating > input:checked ~ label:hover ~ label,
+.rating > label:hover ~ input:checked ~ label {
+  color: #e58e09;
+}
+
+.rating:not(:checked) > label:hover,
+.rating:not(:checked) > label:hover ~ label {
+  color: #ff9e0b;
+}
+
+.rating > input:checked ~ label {
+  color: #ffa723;
+}
+</style>
+
+
+            {{ $rating->rating }}
             <div style="display: flex; justify-content: center;">
                 <div style="border: 1px solid lightgray; border-radius: 10px; width: 1000px;">
                     <iframe src="{{ $movie->movieUrl }}" id="videoIframe" width="1000px" height="600px" style="border:none;" title="Video Player">Nothing</iframe>
@@ -7,6 +44,16 @@
                         <div style="padding-left: 10px;">
                             <h2>{{ $movie->movieName }}</h2>
                             <p>{{ $movie->movieDescription }}</p>
+                            <form method="POST" action="{{ route('ratings.store') }}">
+                                @csrf
+                                <input type="hidden" name="movie_id" value="{{ $movie->id }}">
+                                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                <div style="display: flex; justify-content: center; padding: 10px;">
+                                    <label for="rating">Rate this movie: </label>
+                                    
+                                    <button type="submit" style="margin-left: 10px; background-color: #FFD700; color: black; padding: 5px 10px; border: none; border-radius: 5px;">Submit</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
