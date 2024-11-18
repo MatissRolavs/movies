@@ -1,4 +1,4 @@
-
+<x-app-layout>
 <style>
 .rating:not(:checked) > input {
   position: absolute;
@@ -35,24 +35,41 @@
 </style>
 
 
-            {{ $rating->rating }}
             <div style="display: flex; justify-content: center;">
                 <div style="border: 1px solid lightgray; border-radius: 10px; width: 1000px;">
                     <iframe src="{{ $movie->movieUrl }}" id="videoIframe" width="1000px" height="600px" style="border:none;" title="Video Player">Nothing</iframe>
                     <div style="display: flex; padding: 10px;">
                         <img src="{{ asset('images/' . $movie->movieImage) }}" alt="{{ $movie->movieImage }}" style="width: 100px; height: 150px;">
                         <div style="padding-left: 10px;">
-                            <h2>{{ $movie->movieName }}</h2>
-                            <p>{{ $movie->movieDescription }}</p>
+                            <h2 style="color: white;">{{ $movie->movieName }}</h2>
+                            <p style="color: white;">{{ $movie->movieDescription }}</p>
+
                             <form method="POST" action="{{ route('ratings.store') }}">
                                 @csrf
                                 <input type="hidden" name="movie_id" value="{{ $movie->id }}">
                                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                                 <div style="display: flex; justify-content: center; padding: 10px;">
-                                    <label for="rating">Rate this movie: </label>
-                                    
-                                    <button type="submit" style="margin-left: 10px; background-color: #FFD700; color: black; padding: 5px 10px; border: none; border-radius: 5px;">Submit</button>
+                                    <label for="rating" style="color: white;">Rate this movie: </label>
+                                    <div class="rating">
+                                        <input value="5" name="rating" id="star5" type="radio">
+                                        <label title="text" for="star5"></label>
+                                        <input value="4" name="rating" id="star4" type="radio">
+                                        <label title="text" for="star4"></label>
+                                        <input value="3" name="rating" id="star3" type="radio" >
+                                        <label title="text" for="star3"></label>
+                                        <input value="2" name="rating" id="star2" type="radio">
+                                        <label title="text" for="star2"></label>
+                                        <input value="1" name="rating" id="star1" type="radio">
+                                        <label title="text" for="star1"></label>
+                                    </div>
+                                    <button type="submit" style="margin-left: 10px; background-color: rgb(126 34 206); color: black; padding: 5px 10px; border: none; border-radius: 5px;">Submit</button>
                                 </div>
+                            </form>
+                            <form method="POST" action="{{ route('movies.update', $movie->id) }}" style="display:inline;">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="movie_id" value="{{ $movie->id }}">
+                                <button type="submit" style="margin-left: 10px; background-color: #4CAF50; color: white; padding: 5px 10px; border: none; border-radius: 5px;">Update Movie</button>
                             </form>
                         </div>
                     </div>
@@ -64,7 +81,7 @@
                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                 <div style="display: flex; justify-content: center; padding: 10px;">
                     <textarea name="comment" id="comment" cols="30" rows="10" style="width: 1000px; border-radius: 10px; border: 1px solid lightgray; padding: 10px;" placeholder="Leave a comment..."></textarea>
-                    <button type="submit" style="background-color: #4CAF50; color: white; padding: 14px 20px; margin-left: 10px; border: none; cursor: pointer;">Comment</button>
+                    <button type="submit" style="background-color: rgb(126 34 206); color: white; padding: 14px 20px; margin-left: 10px; border: none; cursor: pointer;">Comment</button>
                 </div>
             </form>
             <h2 style="text-align: center;">Comments</h2>
@@ -72,10 +89,11 @@
             <div style="display: flex; justify-content: center; padding: 10px; border-bottom: 1px solid lightgray;">
                 <div style="display: flex; align-items: center;">
                 @if (auth()->user()->id == $comment->user_id)
-                    <p style="margin-right: 10px;">{{ auth()->user()->name }} : </p>
+                    <p style="margin-right: 10px; color: white;">{{ auth()->user()->name }} : </p>
                 @endif
                 </div>
-                <p style="margin-left: 10px;">{{ $comment->comment }}</p>
+                <p style="margin-left: 10px; color: white;">{{ $comment->comment }}</p>
             </div>
             @endforeach
 
+            </x-app-layout>

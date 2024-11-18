@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("movieName");
             $table->text("movieDescription");
             $table->string("movieImage");
+            $table->decimal("movieRating")->default(0);
             $table->timestamps();
         });
     }

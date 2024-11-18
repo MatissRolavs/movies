@@ -14,10 +14,28 @@ class MovieController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $movies = Movie::all();
-        return view('movies.index', compact('movies'));
+{
+    $query = Movie::query();
+
+    if ($search = request()->query('search')) {
+        $query->where('movieName', 'like', '%' . $search . '%');
     }
+
+    $sortBy = request()->query('sort_by');
+    if ($sortBy === 'rating_asc') {
+        $query->orderBy('movieRating', 'asc');
+    } elseif ($sortBy === 'rating_desc') {
+        $query->orderBy('movieRating', 'desc');
+    } else {
+        $query->orderBy('movieName');
+    }
+
+    $movies = $query->get();
+    $ratings = Rating::all();
+
+    return view('movies.index', compact('movies', 'ratings'));
+}
+
 
     /**
      * Show the form for creating a new resource.
@@ -54,11 +72,8 @@ class MovieController extends Controller
      */
     public function show(Movie $movie)
     {
-        $user = auth()->user();
-        $rating = Rating::where('movie_id', $movie->id)
-                        ->where('user_id', $user->id)
-                        ->first();
-        return view('movies.show', compact('movie','rating'));
+        $ratings = Rating::all();
+        return view('movies.show', compact('movie',"ratings"));
     }
 
     /**
@@ -74,7 +89,22 @@ class MovieController extends Controller
      */
     public function update(UpdateMovieRequest $request, Movie $movie)
     {
-        //
+        $ratings = Rating::all();
+        $averageRating = 0;
+        $count = 0;
+        foreach ($ratings as $rating) {
+            if ($rating->movie_id == $movie->id) {
+                $averageRating += $rating->rating;
+                $count++;
+            }
+        }
+        if ($count > 0) {
+            $averageRating /= $count;
+        }
+        $movie->movieRating = $averageRating;
+        $movie->save();
+        
+        return redirect()->back()->with('message', 'Movie updated successfully');
     }
 
     /**

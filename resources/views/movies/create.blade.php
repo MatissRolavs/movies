@@ -1,4 +1,4 @@
-
+@include('layouts.navigation')
     <h1 class="text-3xl">Create a new movie</h1>
     <form method="POST" action="{{ route('movies.store') }}" enctype="multipart/form-data">
         @csrf
