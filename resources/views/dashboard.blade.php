@@ -15,7 +15,7 @@
         </h2>
     </x-slot>
 
-  
+<!--   
                    
                     <iframe src="https://play2.123embed.net/movie/tt0372784" id="videoIframe" width="600" height="400" style="border:none;" title="Video Player">Nothing</iframe>
                         
@@ -35,4 +35,4 @@
                 iframe.msRequestFullscreen();
             }
         });
-    </script>
+    </script> -->
