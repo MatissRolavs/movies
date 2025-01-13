@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Rating;
 use App\Models\Movie;
+use App\Models\Category;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
 use App\Models\User;
@@ -73,7 +74,8 @@ class MovieController extends Controller
     public function show(Movie $movie)
     {
         $ratings = Rating::all();
-        return view('movies.show', compact('movie',"ratings"));
+        $categories = Category::all();
+        return view('movies.show', compact('movie',"ratings","categories"));
     }
 
     /**

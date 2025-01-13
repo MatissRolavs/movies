@@ -4,6 +4,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\CategoryController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -31,6 +32,8 @@ Route::middleware('auth')->group(function () {
     
     Route::put('/movies/{movie}', [MovieController::class, 'update'])->name('movies.update');
 
+    Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+    
 });
 
 require __DIR__.'/auth.php';

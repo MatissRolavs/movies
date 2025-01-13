@@ -43,7 +43,25 @@
                         <div style="padding-left: 10px;">
                             <h2 style="color: white;">{{ $movie->movieName }}</h2>
                             <p style="color: white;">{{ $movie->movieDescription }}</p>
-                            <button>Add Category</button>
+                            <p style="color: white;">Average Rating: {{ $movie->movieRating }}/5.00</p>
+                            @foreach ($categories as $category)
+                              @if ($category->movie_id == $movie->id)
+                                <p style="color: white;">{{ $category->name }}</p>
+                              @endif
+                            @endforeach
+                            <form method="POST" action="{{ route('categories.store') }}">
+                                @csrf
+                                <select name="category" id="category" onchange="this.form.submit()">
+                                    <option value="" disabled selected>Add a category</option>
+                                    <option value="Comedy">Comedy</option>
+                                    <option value="Thriller">Thriller</option>
+                                    <option value="Horror">Horror</option>
+                                    <option value="Action">Action</option>
+                                    <option value="Romance">Romance</option>
+                                    <option value="Drama">Drama</option>
+                                </select>
+                                <input type="hidden" name="movie_id" value="{{ $movie->id }}">
+                            </form>
                             <form method="POST" action="{{ route('ratings.store') }}">
                                 @csrf
                                 <input type="hidden" name="movie_id" value="{{ $movie->id }}">
