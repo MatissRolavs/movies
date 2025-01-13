@@ -30,7 +30,7 @@
             </div>
         </form>
     </div>
-    <h1 class="text-3xl text-center">Movies</h1>
+    
     <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 25px; margin-top: 20px;">
         @foreach ($movies as $movie)
         <div class="card">

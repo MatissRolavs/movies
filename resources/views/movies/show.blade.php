@@ -43,7 +43,7 @@
                         <div style="padding-left: 10px;">
                             <h2 style="color: white;">{{ $movie->movieName }}</h2>
                             <p style="color: white;">{{ $movie->movieDescription }}</p>
-
+                            <button>Add Category</button>
                             <form method="POST" action="{{ route('ratings.store') }}">
                                 @csrf
                                 <input type="hidden" name="movie_id" value="{{ $movie->id }}">
