@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get("/movies/{movie}", [MovieController::class, 'show'])->name('movies.show');
     Route::post('/movies/store', [MovieController::class, 'store'])->name('movies.store');
-    Route::get("/movies/{movie}", [CommentController::class, 'index'])->name('movies.show');
+   
     Route::post("/", [CommentController::class, 'store'])->name('comments.store');
     
     Route::post("/movies", [RatingController::class, 'store'])->name('ratings.store');
@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/movies/{movie}', [MovieController::class, 'update'])->name('movies.update');
 
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+    
     
 });
 

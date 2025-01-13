@@ -44,10 +44,11 @@
                             <h2 style="color: white;">{{ $movie->movieName }}</h2>
                             <p style="color: white;">{{ $movie->movieDescription }}</p>
                             <p style="color: white;">Average Rating: {{ $movie->movieRating }}/5.00</p>
-                            @foreach ($categories as $category)
-                              @if ($category->movie_id == $movie->id)
+                            @php
+                                $uniqueCategories = $categories->where('movie_id', $movie->id)->unique('name');
+                            @endphp
+                            @foreach ($uniqueCategories as $category)
                                 <p style="color: white;">{{ $category->name }}</p>
-                              @endif
                             @endforeach
                             <form method="POST" action="{{ route('categories.store') }}">
                                 @csrf

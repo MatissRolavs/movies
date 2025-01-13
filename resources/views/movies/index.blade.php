@@ -14,8 +14,21 @@
     object-fit: cover;
 }
 </style>
+
+
+
     <div style="display: flex; justify-content: center; align-items: center; gap: 20px; background-color: black; border-radius: 10px; padding: 20px;">
         <form method="GET" action="{{ route('movies.index') }}">
+            <div style="margin-top: 10px;">
+            <span class="text-white font-medium">Filter by Category:</span>
+            <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+                <label class="text-white"><input type="checkbox" name="category[]" value="Comedy" {{ is_array(request('category')) && in_array('Comedy', request('category')) ? 'checked' : '' }}> Comedy</label>
+                <label class="text-white"><input type="checkbox" name="category[]" value="Thriller" {{ is_array(request('category')) && in_array('Thriller', request('category')) ? 'checked' : '' }}> Thriller</label>
+                <label class="text-white"><input type="checkbox" name="category[]" value="Horror" {{ is_array(request('category')) && in_array('Horror', request('category')) ? 'checked' : '' }}> Horror</label>
+                <label class="text-white"><input type="checkbox" name="category[]" value="Action" {{ is_array(request('category')) && in_array('Action', request('category')) ? 'checked' : '' }}> Action</label>
+                <label class="text-white"><input type="checkbox" name="category[]" value="Romance" {{ is_array(request('category')) && in_array('Romance', request('category')) ? 'checked' : '' }}> Romance</label>
+                <label class="text-white"><input type="checkbox" name="category[]" value="Drama" {{ is_array(request('category')) && in_array('Drama', request('category')) ? 'checked' : '' }}> Drama</label>
+            </div>
             <div style="display: flex; align-items: center;">
                 <button type="submit" class="bg-transparent border-none hover:bg-purple-700 hover:rounded-full">
                     <img src="{{ asset('images/search_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg') }}" width="24" height="24" alt="search icon">
@@ -28,6 +41,8 @@
                     <option value="rating_desc" {{ request('sort_by') == 'rating_desc' ? 'selected' : '' }}>Rating descending</option>
                 </select>
             </div>
+          
+        </div>
         </form>
     </div>
     

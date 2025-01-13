@@ -14,8 +14,7 @@ class CommentController extends Controller
      */
     public function index(Movie $movie)
     {
-        $comments = Comment::where('movie_id', $movie->id)->get();
-        return view('movies.show', compact('comments', 'movie'));
+        
     }
 
     /**

@@ -5,15 +5,17 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
+use App\Models\Movie;
 
 class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Movie $movie)
     {
-        //
+        $categories = Category::where('movie_id', $movie->id)->get();
+        return view('movies.show', compact('categories', 'movie'));
     }
 
     /**

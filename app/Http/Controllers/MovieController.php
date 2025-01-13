@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Rating;
 use App\Models\Movie;
 use App\Models\Category;
+use App\Models\Comment;
 use App\Http\Requests\StoreMovieRequest;
 use App\Http\Requests\UpdateMovieRequest;
 use App\Models\User;
@@ -30,6 +31,14 @@ class MovieController extends Controller
     } else {
         $query->orderBy('movieName');
     }
+
+    $categories = request()->query('category');
+    if ($categories) {
+        $query->whereIn('id', function ($q) use ($categories) {
+            $q->select('movie_id')->from('categories')->whereIn('name', $categories);
+        });
+    }
+
 
     $movies = $query->get();
     $ratings = Rating::all();
@@ -72,10 +81,11 @@ class MovieController extends Controller
      * Display the specified resource.
      */
     public function show(Movie $movie)
-    {
+    {    
+        $categories = Category::where('movie_id', $movie->id)->get();
+        $comments = Comment::where('movie_id', $movie->id)->get();
         $ratings = Rating::all();
-        $categories = Category::all();
-        return view('movies.show', compact('movie',"ratings","categories"));
+        return view('movies.show', compact('movie',"ratings","comments","categories"));	
     }
 
     /**
