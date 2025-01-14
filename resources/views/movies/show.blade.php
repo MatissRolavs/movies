@@ -32,14 +32,39 @@
 .rating > input:checked ~ label {
   color: #ffa723;
 }
+.search-sort-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  background-color: black;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
 </style>
 
-
+<div class="search-sort-container">
+    <div class="shrink-0 flex items-center text-white">
+        <a href="{{ route('movies.index') }}">
+            <img src="{{ asset('images/logo.png') }}" alt="logo" width="100" height="50">
+        </a>
+    </div>
+  <form method="GET" action="{{ route('movies.index') }}">
+    <div style="margin-top: 10px;">
+      <button type="submit" class="bg-transparent border-none hover:bg-purple-700 hover:rounded-full">
+        <img src="{{ asset('images/search_24dp_5F6368_FILL0_wght400_GRAD0_opsz24.svg') }}" width="24" height="24" alt="search icon">
+      </button>
+      <input type="text" name="search" id="search" value="{{ request('search') }}" style="width: 270px; height: 20px; border-radius: 10px; padding: 10px; font-size: 20px;" class="bg-white border border-purple-700 rounded-md p-2">
+    </form>  
+    </div>
+  
+</div>
             <div style="display: flex; justify-content: center;">
                 <div style="border: 1px solid lightgray; border-radius: 10px; width: 1000px;">
-                    <iframe src="{{ $movie->movieUrl }}" id="videoIframe" width="1000px" height="600px" style="border:none;" title="Video Player">Nothing</iframe>
+                    <iframe src="{{ $movie->movieUrl }}" id="videoIframe" width="1000px" height="600px" style="border:none;" title="Video Player" allowfullscreen>Nothing</iframe>
                     <div style="display: flex; padding: 10px;">
-                        <img src="{{ asset('images/' . $movie->movieImage) }}" alt="{{ $movie->movieImage }}" style="width: 100px; height: 150px;">
+                        <img src="{{ file_exists(public_path('images/' . $movie->movieImage)) ? asset('images/' . $movie->movieImage) : $movie->movieImage }}" alt="{{ $movie->movieImage }}" style="width: 205px; height: 266px;">
                         <div style="padding-left: 10px;">
                             <h2 style="color: white;">{{ $movie->movieName }}</h2>
                             <p style="color: white;">{{ $movie->movieDescription }}</p>
@@ -47,9 +72,7 @@
                             @php
                                 $uniqueCategories = $categories->where('movie_id', $movie->id)->unique('name');
                             @endphp
-                            @foreach ($uniqueCategories as $category)
-                                <p style="color: white;">{{ $category->name }}</p>
-                            @endforeach
+                            <p style="color: white;">{{ $uniqueCategories->pluck('name')->implode(', ') }}</p>
                             <form method="POST" action="{{ route('categories.store') }}">
                                 @csrf
                                 <select name="category" id="category" onchange="this.form.submit()">
@@ -104,7 +127,7 @@
                 </div>
             </form>
             <h2 style="text-align: center;">Comments</h2>
-            @foreach ($comments as $comment)
+            @foreach ($comments->sortByDesc('created_at') as $comment)
             <div style="display: flex; justify-content: center; padding: 10px; border-bottom: 1px solid lightgray;">
                 <div style="display: flex; align-items: center;">
                 @if (auth()->user()->id == $comment->user_id)
