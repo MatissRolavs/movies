@@ -40,8 +40,38 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
-</style>
+.link-box {
+  padding: 20px;
+  border-style: solid;
+  border-color: rgb(126, 34, 206);
+  border-radius: 10px;
+  width: 100px;
+  transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
 
+.link-box:hover {
+  box-shadow: 0 0 10px rgb(126, 34, 206);
+  background-color: rgb(126 34 206); /* light grey tone */
+}
+.link-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: absolute;
+  background-color: black;
+  top: 120px;
+  
+  
+}
+</style>
+<div class="link-container">
+  <div class = "link-box">
+    <a style="text-decoration: none; color: white;" href= "{{ route('movies.index') }}">Home</a>
+  </div>
+  <div class="link-box">
+    <a style="text-decoration: none; color: white;" href= "{{ route('watchlaters.index') }}">Watch Later</a>
+  </div>
+</div>
 <div class="search-sort-container">
     <div class="shrink-0 flex items-center text-white">
         <a href="{{ route('movies.index') }}">

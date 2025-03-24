@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\WatchlaterController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -33,8 +34,10 @@ Route::middleware('auth')->group(function () {
     Route::put('/movies/{movie}', [MovieController::class, 'update'])->name('movies.update');
 
     Route::post('/categories', [CategoryController::class, 'store'])->name('categories.store');
+
+    Route::post('/watchlaters', [WatchlaterController::class, 'store'])->name('watchlaters.store');
     
-    
+    Route::get('/watchlater', [WatchlaterController::class, 'index'])->name('watchlaters.index');
 });
 
 require __DIR__.'/auth.php';

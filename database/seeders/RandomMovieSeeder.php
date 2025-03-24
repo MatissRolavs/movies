@@ -77,3 +77,4 @@ class RandomMovieSeeder extends Seeder
         return $response->json()['imdb_id'] ?? null;
     }
 }
+
