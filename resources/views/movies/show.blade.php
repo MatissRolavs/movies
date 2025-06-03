@@ -161,7 +161,7 @@
                     <button type="submit" style="background-color: rgb(126 34 206); color: white; padding: 14px 20px; margin-left: 10px; border: none; cursor: pointer;">Comment</button>
                 </div>
             </form>
-            <h2 style="text-align: center;">Comments</h2>
+            <h2 style="text-align: center; color: white;">Comments</h2>
             @foreach ($comments->sortByDesc('created_at') as $comment)
             <div style="display: flex; justify-content: center; padding: 10px; border-bottom: 1px solid lightgray;">
                 <div style="display: flex; align-items: center;">

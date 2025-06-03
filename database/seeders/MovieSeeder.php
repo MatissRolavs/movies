@@ -34,7 +34,7 @@ class MovieSeeder extends Seeder
     private function formatMovie($movie)
     {
         return [
-            'movieUrl' => "https://play2.123embed.net/movie/" . $this->fetchImdbId($movie['id']),
+            'movieUrl' => "https://multiembed.mov/?video_id=" . $this->fetchImdbId($movie['id']),
             'movieName' => $movie['title'],
             'movieDescription' => $movie['overview'],
             'movieImage' => 'https://image.tmdb.org/t/p/w500' . $movie['poster_path'],

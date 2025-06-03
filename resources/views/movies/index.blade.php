@@ -1,5 +1,6 @@
 <x-app-layout>
 <style>
+
 .card {
   width: 190px;
   height: 254px;
@@ -13,17 +14,19 @@
   object-fit: cover;
 }
 .filter-container {
-  display: flex;
+  position: fixed;
   flex-direction: column;
   align-items: flex-end;
   background-color: black;
   border-radius: 10px;
   padding: 20px;
-  position: absolute;
   right: 5px;
   top: 120px;
   border-style: solid;
   border-color:rgb(126 34 206);
+  z-index: 10;
+  opacity: 0.9;
+  display: none;
 }
 .search-sort-container {
   display: flex;
@@ -34,6 +37,10 @@
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 10;
 }
 .category-grid {
   display: grid;
@@ -47,6 +54,9 @@
   border-radius: 10px;
   width: 100px;
   transition: box-shadow 0.3s ease, background-color 0.3s ease;
+  opacity: 0.9;
+  background-color: black;
+  margin-bottom: 5px;
 }
 
 .link-box:hover {
@@ -54,17 +64,41 @@
   background-color: rgb(126 34 206); /* light grey tone */
 }
 .link-container {
-  display: flex;
+ z-index: 10;
   flex-direction: column;
   align-items: flex-start;
   position: absolute;
-  background-color: black;
+  
   top: 120px;
-  
-  
+  position: fixed;
+  display: none;
 }
+
+.movie-container {
+  display: grid;
+  gap: 10px;
+  justify-content: center;
+}
+
+/* If screen is 1000px or larger, stay at 5 columns */
+@media (min-width: 1000px) {
+  .movie-container {
+    grid-template-columns: repeat(5, 200px);
+  }
+}
+
+/* If screen is less than 1000px, switch to auto-fit */
+@media (max-width: 999px) {
+  .movie-container {
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  }
+}
+
+
+
 </style>
-<div class="link-container">
+ 
+<div class="link-container" id="link-container">
   <div class = "link-box">
     <a style="text-decoration: none; color: white;" href= "{{ route('movies.index') }}">Home</a>
   </div>
@@ -73,6 +107,9 @@
   </div>
 </div>
 <div class="search-sort-container">
+   
+  <button style="border-color: #6B21A8; background-color: black; color: white;" onclick="toggleVisibility('link-container')" class="toggle-button">Toggle Navigation</button>
+  <button style="border-color: #6B21A8; background-color: black; color: white;" onclick="toggleVisibility('filter-container')" class="toggle-button">Toggle Category Filters</button>
     <div class="shrink-0 flex items-center text-white">
         <a href="{{ route('movies.index') }}">
             <img src="{{ asset('images/logo.png') }}" alt="logo" width="100" height="50">
@@ -90,11 +127,11 @@
         <option value="rating_asc" {{ request('sort_by') == 'rating_asc' ? 'selected' : '' }}>Rating ascending</option>
         <option value="rating_desc" {{ request('sort_by') == 'rating_desc' ? 'selected' : '' }}>Rating descending</option>
       </select>
+      
     </div>
   
 </div>
-
-<div class="filter-container">
+<div class="filter-container" id="filter-container">
   
     <div style="margin-top: 10px;">
       <span class="text-white font-medium">Filter by Category:</span>
@@ -105,12 +142,15 @@
         <label class="text-white"><input type="checkbox" name="category[]" value="Action" {{ is_array(request('category')) && in_array('Action', request('category')) ? 'checked' : '' }}> Action</label>
         <label class="text-white"><input type="checkbox" name="category[]" value="Romance" {{ is_array(request('category')) && in_array('Romance', request('category')) ? 'checked' : '' }}> Romance</label>
         <label class="text-white"><input type="checkbox" name="category[]" value="Drama" {{ is_array(request('category')) && in_array('Drama', request('category')) ? 'checked' : '' }}> Drama</label>
+        <label class="text-white"><input type="checkbox" name="category[]" value="Adventure" {{ is_array(request('category')) && in_array('Adventure', request('category')) ? 'checked' : '' }}> Adventure</label>
+        <label class="text-white"><input type="checkbox" name="category[]" value="Animation" {{ is_array(request('category')) && in_array('Animation', request('category')) ? 'checked' : '' }}> Animation</label>
       </div>
     </div>
   </form>
+  
 </div>
 
-<div style="display: grid; grid-template-columns: repeat(5, 190px); gap: 10px; justify-content: center; margin-top: 20px;">
+<div class="movie-container" style="display: grid; ; gap: 10px; justify-content: center; margin-top: 100px; @media (max-width: 1000px) { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }">
   @foreach ($movies as $movie)
   <div style="width: 190px; overflow: hidden; box-sizing: border-box;">
     <div class="card relative" style="width: 190px;">
@@ -132,7 +172,14 @@
   @endforeach
 </div>
 
+<script>
+function toggleVisibility(id) {
+  var element = document.getElementById(id);
+  element.style.display = (element.style.display === "none" || element.style.display === "") ? "flex" : "none";
+}
+</script>
 
 
 </x-app-layout>
+
 
