@@ -38,6 +38,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/watchlaters', [WatchlaterController::class, 'store'])->name('watchlaters.store');
     
     Route::get('/watchlater', [WatchlaterController::class, 'index'])->name('watchlaters.index');
+
+    Route::delete("/comments/{comment}", [CommentController::class, 'destroy'])->name('comments.destroy');
 });
 
 require __DIR__.'/auth.php';

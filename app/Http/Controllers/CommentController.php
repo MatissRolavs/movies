@@ -72,6 +72,8 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+
+        return redirect()->route('movies.show', $comment->movie_id)->with('message', 'Comment deleted successfully');
     }
 }

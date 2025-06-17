@@ -52,7 +52,11 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return view('movies.create');
+        if (auth()->user()->role === 'admin') {
+            return view('movies.create');
+        }
+
+        abort(403, 'Unauthorized action.');
     }
 
     /**

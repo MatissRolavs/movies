@@ -26,7 +26,7 @@
   border-color:rgb(126 34 206);
   z-index: 10;
   opacity: 0.9;
-  display: none;
+  display: flex;
 }
 .search-sort-container {
   display: flex;
@@ -71,7 +71,7 @@
   
   top: 120px;
   position: fixed;
-  display: none;
+  display: flex;
 }
 
 .movie-container {

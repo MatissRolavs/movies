@@ -108,19 +108,7 @@
                               <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
                               <button type="submit" style="margin-left: 10px; background-color: #4CAF50; color: white; padding: 5px 10px; border: none; border-radius: 5px;">Watch Later</button>
                             </form>
-                            <form method="POST" action="{{ route('categories.store') }}">
-                                @csrf
-                                <select name="category" id="category" onchange="this.form.submit()">
-                                    <option value="" disabled selected>Add a category</option>
-                                    <option value="Comedy">Comedy</option>
-                                    <option value="Thriller">Thriller</option>
-                                    <option value="Horror">Horror</option>
-                                    <option value="Action">Action</option>
-                                    <option value="Romance">Romance</option>
-                                    <option value="Drama">Drama</option>
-                                </select>
-                                <input type="hidden" name="movie_id" value="{{ $movie->id }}">
-                            </form>
+                            
                             <form method="POST" action="{{ route('ratings.store') }}">
                                 @csrf
                                 <input type="hidden" name="movie_id" value="{{ $movie->id }}">
@@ -170,6 +158,15 @@
                 @endif
                 </div>
                 <p style="margin-left: 10px; color: white;">{{ $comment->comment }}</p>
+                @if (auth()->user()->id == $comment->user_id)
+                    <div style="display: flex; align-items: center; margin-left: auto;">
+                        <form method="POST" action="{{ route('comments.destroy', $comment->id) }}">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" style="background-color: rgb(239 68 68); color: white; padding: 5px 10px; border: none; cursor: pointer;">Delete</button>
+                        </form>
+                    </div>
+                @endif
             </div>
             @endforeach
 
