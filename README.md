@@ -1,66 +1,119 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Movies 🎬
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A full-stack application for browsing, searching, and managing movie data — built with Laravel and Vue (or your tech stack).  
 
-## About Laravel
+Explore films, view details, filter by genres, and more — all in a sleek, responsive UI.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## 📘 Table of Contents
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+1. [Features](#features)  
+2. [Tech Stack](#tech-stack)  
+3. [Installation & Setup](#installation--setup)  
+4. [Configuration](#configuration)  
+5. [Database & Migrations](#database--migrations)  
+6. [Seeding / Sample Data](#seeding--sample-data)  
+7. [Usage / Endpoints](#usage--endpoints)  
+8. [Running Tests](#running-tests)  
+9. [Deployment](#deployment)  
+10. [Contributing](#contributing)  
+11. [License](#license)  
+12. [Acknowledgments](#acknowledgments)
 
-## Learning Laravel
+---
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## ✨ Features
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- Browse a catalog of movies with details (title, description, release date, rating, etc.)  
+- Search and filter by title, genre, year, etc.  
+- Movie detail pages with cast, trailers, and more  
+- User authentication (login / registration)  
+- Admin panel (if included) to add / edit / delete movie entries  
+- Responsive UI for desktop and mobile  
+- RESTful API to serve movie data  
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+---
 
-## Laravel Sponsors
+## 🧰 Tech Stack
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+| Layer | Technology |
+|---|---|
+| Backend / Server | Laravel (PHP) |
+| Frontend / UI | Vue.js, Vite, Tailwind CSS (or whatever you're using) |
+| Database | MySQL (or configured DB) |
+| APIs / External Data | (If using an external movie API, specify here) |
 
-### Premium Partners
+---
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## 🚀 Installation & Setup
 
-## Contributing
+1. **Clone the repository**  
+    ```bash
+    git clone https://github.com/MatissRolavs/movies.git
+    cd movies
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+2. **Install backend dependencies**  
+    ```bash
+    composer install
+    ```
 
-## Code of Conduct
+3. **Install frontend dependencies**  
+    ```bash
+    npm install
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. **Copy environment file**  
+    ```bash
+    cp .env.example .env
+    ```
 
-## Security Vulnerabilities
+5. **Configure `.env`**  
+    Fill in database credentials, app URL, and any API keys. Example:
+    ```text
+    APP_NAME=Movies
+    APP_ENV=local
+    APP_KEY=base64:...
+    APP_URL=http://localhost
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=movies_db
+    DB_USERNAME=root
+    DB_PASSWORD=secret
+    ```
 
-## License
+6. **Generate application key**  
+    ```bash
+    php artisan key:generate
+    ```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+7. **Run migrations & seeders**  
+    ```bash
+    php artisan migrate --seed
+    ```
+
+8. **Build frontend / serve assets**  
+    ```bash
+    npm run dev
+    ```
+
+9. **Start the backend server**  
+    ```bash
+    php artisan serve
+    ```
+
+Browse to `http://localhost:8000` to view the app.
+
+---
+
+## ⚙️ Configuration
+
+Any configuration values (API keys, caching, third-party integrations) should be set in `.env`.  
+For example:
+```text
+MOVIE_API_KEY=your_api_key_here
+CACHE_TTL=3600
+ENABLE_ADMIN_PANEL=true
