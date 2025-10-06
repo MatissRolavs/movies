@@ -23,7 +23,7 @@ Explore films, view details, filter by genres, and more - all in a sleek, respon
 | Backend / Server | Laravel (PHP) |
 | Frontend / UI | Vue.js, Vite, Tailwind CSS |
 | Database | MySQL |
-| APIs / External Data |
+| APIs / External Data | themoviedbAPI |
 
 ---
 
@@ -51,13 +51,8 @@ Explore films, view details, filter by genres, and more - all in a sleek, respon
     ```
 
 5. **Configure `.env`**  
-    Fill in database credentials, app URL, and any API keys. Example:
+    Fill in database credentials. Example:
     ```text
-    APP_NAME=Movies
-    APP_ENV=local
-    APP_KEY=base64:...
-    APP_URL=http://localhost
-
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
     DB_PORT=3306
